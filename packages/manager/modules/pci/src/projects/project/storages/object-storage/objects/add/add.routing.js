@@ -41,5 +41,8 @@ export default /* @ngInject */ ($stateProvider) => {
           'pci_projects_project_storages_containers_add_title',
         ),
     },
+    atInternet: {
+      rename: 'pci::projects::project::storages::objects::add',
+    },
   });
 };

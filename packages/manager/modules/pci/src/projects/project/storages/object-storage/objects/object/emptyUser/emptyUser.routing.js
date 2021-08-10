@@ -10,10 +10,28 @@ export default /* @ngInject */ ($stateProvider) => {
       },
       layout: 'modal',
       resolve: {
-        goToUsersAndRoles: /* @ngInject */ ($state) => () =>
-          $state.go('pci.projects.project.users'),
-        goBack: /* @ngInject */ (goToStorageContainers) =>
+        goToUsersAndRoles: /* @ngInject */ (
+          $state,
+          atInternet,
+          trackingPrefix,
+        ) => () => {
+          atInternet.trackClick({
+            name: `${trackingPrefix}add-users::goto-users-roles`,
+            type: 'action',
+          });
+          return $state.go('pci.projects.project.users');
+        },
+        goBack: /* @ngInject */ (
           goToStorageContainers,
+          atInternet,
+          trackingPrefix,
+        ) => () => {
+          atInternet.trackClick({
+            name: `${trackingPrefix}add-users::cancel`,
+            type: 'action',
+          });
+          return goToStorageContainers();
+        },
         breadcrumb: () => null,
       },
     },
