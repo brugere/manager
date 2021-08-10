@@ -1,6 +1,6 @@
 import get from 'lodash/get';
 import map from 'lodash/map';
-import { PACK_XDSL_STATISTICS } from './statistics.constant';
+import { PACK_XDSL_STATISTICS, PREVIEW } from './statistics.constant';
 
 export default class XdslStatisticsCtrl {
   /* @ngInject */
@@ -31,22 +31,22 @@ export default class XdslStatisticsCtrl {
     this.periodOptions = this.XDSL.statisticsPeriodEnum;
 
     this.synchronization = {
-      period: 'preview',
+      period: PREVIEW,
     };
     this.traffic = {
-      period: 'preview',
+      period: PREVIEW,
     };
     this.ping = {
-      period: 'preview',
+      period: PREVIEW,
     };
     this.snr = {
-      period: 'preview',
+      period: PREVIEW,
     };
     this.attenuation = {
-      period: 'preview',
+      period: PREVIEW,
     };
     this.errors = {
-      period: 'preview',
+      period: PREVIEW,
     };
 
     const PingStatsPromise = this.getPingStatistics(this.ping.period).then(() =>
@@ -118,6 +118,9 @@ export default class XdslStatisticsCtrl {
    *          - attenuation:download,
    *          - synchronization:upload,
    *          - synchronization:download
+   *          - error:hec,
+   *          - error:fec,
+   *          - error:crc
    * @param {String} period Period to request :
    *          - daily
    *          - monthly
@@ -148,9 +151,6 @@ export default class XdslStatisticsCtrl {
    *          - ping
    *          - traffic:upload,
    *          - traffic:download,
-   *          - error:hec,
-   *          - error:fec,
-   *          - error:crc
    * @param {String} period Period to request :
    *          - daily
    *          - monthly
@@ -566,7 +566,7 @@ export default class XdslStatisticsCtrl {
         crc: this.getLinesStatistics('error:crc', period),
       })
       .then((stats) => {
-        this.errors.haveSeries = !!Object.values(stats).every(
+        this.errors.haveSeries = Object.values(stats).every(
           (stat) => stat.length,
         );
 
