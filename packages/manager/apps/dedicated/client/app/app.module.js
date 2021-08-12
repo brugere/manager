@@ -106,13 +106,13 @@ import ovhManagerVeeamCloudConnect from '@ovh-ux/manager-veeam-cloud-connect';
 import ovhManagerVps from '@ovh-ux/manager-vps';
 import ovhManagerVrack from '@ovh-ux/manager-vrack';
 import ovhManagerIplb from '@ovh-ux/manager-iplb';
+import ovhModuleLicense from '@ovh-ux/manager-license';
 import ovhManagerCloudConnect from '@ovh-ux/manager-cloud-connect';
 import { detach as detachPreloader } from '@ovh-ux/manager-preloader';
 import ovhNotificationsSidebar from '@ovh-ux/manager-notifications-sidebar';
 import ovhManagerAccountMigration from '@ovh-ux/manager-account-migration';
 import account from './account';
 import cdn from './cdn';
-import moduleLicense from './license';
 import config, { getConstants } from './config/config';
 import dedicatedCloud from './dedicatedCloud';
 import dedicatedUniverseComponents from './dedicatedUniverseComponents';
@@ -146,6 +146,7 @@ export default (containerEl, environment) => {
         ovhManagerAtInternetConfiguration,
         ovhManagerBilling,
         ovhManagerCookiePolicy,
+        ovhModuleLicense,
         chartjs,
         'controllers',
         cdn,
@@ -164,7 +165,6 @@ export default (containerEl, environment) => {
         'Module.download',
         environment.getRegion() === 'CA' ? moduleExchange : undefined,
         managedBaremetal,
-        moduleLicense,
         otrs,
         ovhManagerMfaEnrollment,
         'ngMessages',
