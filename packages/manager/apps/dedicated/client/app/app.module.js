@@ -110,7 +110,7 @@ import ovhManagerCloudConnect from '@ovh-ux/manager-cloud-connect';
 import { detach as detachPreloader } from '@ovh-ux/manager-preloader';
 import ovhNotificationsSidebar from '@ovh-ux/manager-notifications-sidebar';
 import ovhManagerAccountMigration from '@ovh-ux/manager-account-migration';
-import account from './account';
+import ovhManagerUserAccount from '@ovh-ux/manager-user-account';
 import cdn from './cdn';
 import moduleLicense from './license';
 import config, { getConstants } from './config/config';
@@ -140,7 +140,7 @@ export default (containerEl, environment) => {
       moduleName,
       [
         ...get(__NG_APP_INJECTIONS__, environment.getRegion(), []),
-        account,
+        ovhManagerUserAccount,
         ovhManagerAccountSidebar,
         registerCoreModule(environment),
         ovhManagerAtInternetConfiguration,
