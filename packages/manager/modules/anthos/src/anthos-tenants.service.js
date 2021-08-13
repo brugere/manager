@@ -50,4 +50,12 @@ export default class AnthosTenantsService {
       },
     );
   }
+
+  restartHost(serviceName, hostId) {
+    return this.$http
+      .post(
+        `/dedicated/anthos/tenants/${serviceName}/baremetals/${hostId}/actions/restart`,
+      )
+      .then(({ data }) => data);
+  }
 }
