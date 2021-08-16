@@ -1,3 +1,4 @@
+import ngOvhUiRouterLayout from '@ovh-ux/ng-ui-router-layout';
 import contacts from './contacts';
 import contactUpdate from './contacts/update';
 import redirection from './account.redirection';
@@ -15,6 +16,7 @@ angular
     'ui.bootstrap',
     'ui.router',
     user,
+    ngOvhUiRouterLayout,
   ])
   .config(redirection)
   .config(routing);
