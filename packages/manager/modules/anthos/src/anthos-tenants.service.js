@@ -51,6 +51,26 @@ export default class AnthosTenantsService {
     );
   }
 
+  getServiceInfo(serviceName) {
+    return this.$http
+      .get(`/dedicated/anthos/tenants/${serviceName}/serviceInfos`)
+      .then(({ data }) => data);
+  }
+
+  getOptions(serviceId) {
+    return this.$http
+      .get(`/services/${serviceId}/options`)
+      .then(({ data }) => data);
+  }
+
+  getHostService(serviceName, hostId) {
+    return this.getServiceInfo(serviceName)
+      .then(({ serviceId }) => this.getOptions(serviceId))
+      .then((options) =>
+        options.find((option) => option.resource?.name === hostId),
+      );
+  }
+
   restartHost(serviceName, hostId) {
     return this.$http
       .post(
@@ -71,6 +91,14 @@ export default class AnthosTenantsService {
     return this.$http
       .put(`/dedicated/anthos/tenants/${serviceName}/baremetals/${hostId}`, {
         stateful,
+      })
+      .then(({ data }) => data);
+  }
+
+  terminateServiceById(serviceId) {
+    return this.$http
+      .post(`/services/${serviceId}/terminate`, {
+        acknowledgePotentialFees: true,
       })
       .then(({ data }) => data);
   }
