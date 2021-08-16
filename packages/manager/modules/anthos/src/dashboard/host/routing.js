@@ -13,6 +13,8 @@ export default /* @ngInject */ ($stateProvider) => {
         $state.go('anthos.dashboard.host.reinstall', { serviceName, host }),
       goToRestartHost: /* @ngInject */ ($state, serviceName) => (host) =>
         $state.go('anthos.dashboard.host.restart', { serviceName, host }),
+      goToSetStateHost: /* @ngInject */ ($state, serviceName) => (host) =>
+        $state.go('anthos.dashboard.host.set-state', { serviceName, host }),
     },
   });
 };
