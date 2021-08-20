@@ -18,19 +18,20 @@ import {
   VOLUME_MAX_SIZE,
   VOLUME_MIN_SIZE,
   VOLUME_UNLIMITED_QUOTA,
-  VOLUME_TYPES,
   VOLUME_SNAPSHOT_CONSUMPTION,
 } from './block.constants';
 
 export default class PciProjectStorageBlockService {
   /* @ngInject */
   constructor(
+    $http,
     $q,
     CucPriceHelper,
     OvhApiCloudProject,
     OvhApiCloudProjectQuota,
     OvhApiCloudProjectVolumeSnapshot,
   ) {
+    this.$http = $http;
     this.$q = $q;
     this.CucPriceHelper = CucPriceHelper;
     this.OvhApiCloudProject = OvhApiCloudProject;
@@ -276,6 +277,16 @@ export default class PciProjectStorageBlockService {
       }).$promise;
   }
 
+  getCatalog(ovhSubsidiary) {
+    return this.$http
+      .get(`/order/catalog/public/cloud`, {
+        params: {
+          ovhSubsidiary,
+        },
+      })
+      .then(({ data }) => data);
+  }
+
   static getVolumePriceEstimationFromCatalog(catalog, storage) {
     const relatedCatalog = get(
       catalog,
@@ -326,26 +337,29 @@ export default class PciProjectStorageBlockService {
     );
   }
 
-  getPricesEstimations(projectId, regions, size = VOLUME_MIN_SIZE) {
-    return this.CucPriceHelper.getPrices(projectId).then((catalog) =>
-      reduce(
-        VOLUME_TYPES,
-        (typeResult, type) => ({
-          ...typeResult,
-          [type]: reduce(
-            regions,
-            (regionResult, region) => ({
-              ...regionResult,
-              [region.name]: PciProjectStorageBlockService.getVolumePriceEstimationFromCatalog(
-                catalog,
-                { region, type, size },
-              ),
-            }),
-            {},
-          ),
-        }),
-        {},
-      ),
+  static getPricesEstimations(
+    catalog,
+    regions,
+    size = VOLUME_MIN_SIZE,
+    volumeTypes,
+  ) {
+    return reduce(
+      volumeTypes,
+      (typeResult, type) => ({
+        ...typeResult,
+        [type]: reduce(
+          regions,
+          (regionResult, region) => ({
+            ...regionResult,
+            [region.name]: PciProjectStorageBlockService.getVolumePriceEstimationFromCatalog(
+              catalog,
+              { region, type, size },
+            ),
+          }),
+          {},
+        ),
+      }),
+      {},
     );
   }
 
@@ -390,8 +404,23 @@ export default class PciProjectStorageBlockService {
       });
   }
 
-  getAvailablesTypes() {
-    return this.$q.when(VOLUME_TYPES);
+  getAvailablesTypes(catalog) {
+    // Get volumes addons ids
+    const volumeAddonsIds = catalog.plans
+      .find((plan) => plan.planCode === 'project')
+      .addonFamilies.find(({ name }) => name === 'volume').addons;
+
+    // Get volumes addons details
+    const volumeAddons = catalog.addons.filter((addon) =>
+      volumeAddonsIds.includes(addon.planCode),
+    );
+
+    // Get volume types
+    const volumesTypes = Array.from(
+      new Set(volumeAddons.map((addon) => addon.blobs.technical.name)),
+    );
+
+    return this.$q.when(volumesTypes.sort());
   }
 
   getSnapshotPriceEstimation(projectId, storage) {
