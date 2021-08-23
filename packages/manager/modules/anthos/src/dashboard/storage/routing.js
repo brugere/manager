@@ -23,6 +23,15 @@ export default /* @ngInject */ ($stateProvider) => {
           ...usageData,
           totalUsed: usageData.reservedSize + usageData.usedSize,
         })),
+      goToStorage: /* @ngInject */ (goToState, serviceName) => (
+        message,
+        type,
+      ) =>
+        goToState('anthos.dashboard.storage', { serviceName }, message, type),
+      goToAddStorage: /* @ngInject */ ($state, serviceName) => () =>
+        $state.go('anthos.dashboard.storage.add', { serviceName }),
+      goToRemoveStorage: /* @ngInject */ ($state, serviceName) => (storage) =>
+        $state.go('anthos.dashboard.storage.remove', { serviceName, storage }),
     },
   });
 };

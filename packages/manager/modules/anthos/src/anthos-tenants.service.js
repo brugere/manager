@@ -67,4 +67,20 @@ export default class AnthosTenantsService {
       .get(`/dedicated/anthos/tenants/${serviceName}/storage/netapp/usage`)
       .then(({ data }) => data);
   }
+
+  addStorage(serviceName, description) {
+    return this.$http
+      .post(`/dedicated/anthos/tenants/${serviceName}/storage/netapp/svms`, {
+        description,
+      })
+      .then(({ data }) => data);
+  }
+
+  removeStorage(serviceName, storageId) {
+    return this.$http
+      .delete(
+        `/dedicated/anthos/tenants/${serviceName}/storage/netapp/svms/${storageId}`,
+      )
+      .then(({ data }) => data);
+  }
 }
