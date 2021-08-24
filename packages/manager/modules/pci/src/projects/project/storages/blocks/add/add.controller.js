@@ -1,6 +1,5 @@
 import angular from 'angular';
 import get from 'lodash/get';
-import map from 'lodash/map';
 
 import BlockStorage from '../block.class';
 import Region from '../region.class';
@@ -50,24 +49,20 @@ export default class PciBlockStorageAddController {
           regions: this.PciProjectStorageBlockService.getAvailablesRegions(
             this.projectId,
           ),
-          types: this.PciProjectStorageBlockService.getAvailablesTypes(),
+          types: this.PciProjectStorageBlockService.getAvailablesTypes(
+            this.catalog,
+          ),
         }),
       )
       .then(({ regions, types }) => {
         this.regions = regions;
         this.types = types;
 
-        this.typesList = map(this.types, (type) => ({
-          id: type,
-          name: this.$translate.instant(
-            `pci_projects_project_storages_blocks_add_type_${type}_description`,
-          ),
-        }));
-
-        return this.PciProjectStorageBlockService.getPricesEstimations(
-          this.projectId,
+        return this.PciProjectStorageBlockService.constructor.getPricesEstimations(
+          this.catalog,
           this.regions,
           1,
+          types,
         );
       })
       .then((typeRegionPrices) => {
@@ -117,7 +112,7 @@ export default class PciBlockStorageAddController {
   onTypeChange() {
     this.displaySelectedType = true;
 
-    this.storage.type = this.selectedType.id;
+    this.storage.type = this.selectedType;
 
     this.loadings.size = true;
     return this.estimatePrice()

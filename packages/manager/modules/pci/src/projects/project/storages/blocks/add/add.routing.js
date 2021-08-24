@@ -12,6 +12,12 @@ export default /* @ngInject */ ($stateProvider) => {
         $state.href('pci.projects.project.quota', {
           projectId,
         }),
+
+      catalog: /* @ngInject */ (coreConfig, PciProjectStorageBlockService) =>
+        PciProjectStorageBlockService.getCatalog(
+          coreConfig.getUser().ovhSubsidiary,
+        ),
+
       breadcrumb: /* @ngInject */ ($translate) =>
         $translate.instant('pci_projects_project_storages_blocks_add_title'),
     },

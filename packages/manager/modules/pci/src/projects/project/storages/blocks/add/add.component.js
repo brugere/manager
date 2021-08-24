@@ -9,5 +9,6 @@ export default {
     goBack: '<',
     cancelLink: '<',
     quotaUrl: '<',
+    catalog: '<',
   },
 };
