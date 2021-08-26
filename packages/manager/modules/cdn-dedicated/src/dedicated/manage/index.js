@@ -3,6 +3,7 @@ import uiRouter from '@uirouter/angularjs';
 import '@ovh-ux/ng-translate-async-loader';
 import 'angular-translate';
 import '@ovh-ux/ui-kit';
+import ngQAllSettled from '@ovh-ux/ng-q-allsettled';
 
 import routing from './cdn-dedicated-manage.routes';
 
@@ -21,6 +22,7 @@ angular
     'ngTranslateAsyncLoader',
     'oui',
     'pascalprecht.translate',
+    ngQAllSettled,
     statisticsModule,
     logsModule,
     sslModule,

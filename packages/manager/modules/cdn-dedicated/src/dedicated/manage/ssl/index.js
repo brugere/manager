@@ -4,6 +4,8 @@ import '@ovh-ux/ng-translate-async-loader';
 import 'angular-translate';
 import '@ovh-ux/ui-kit';
 
+import ngOvhUiRouterLayout from '@ovh-ux/ng-ui-router-layout';
+
 import addModule from './add';
 import deleteModule from './delete';
 import generateModule from './generate';
@@ -19,6 +21,7 @@ angular
     'ngTranslateAsyncLoader',
     'oui',
     'pascalprecht.translate',
+    ngOvhUiRouterLayout,
     addModule,
     deleteModule,
     generateModule,
