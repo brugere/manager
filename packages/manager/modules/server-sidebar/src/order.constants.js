@@ -489,7 +489,7 @@ export const SIDEBAR_ORDER_CONFIG = [
     icon: 'ovh-font ovh-font-certificate',
     linkId: 'DEDICATED',
     linkPart: '#/configuration/license/order',
-    state: 'app.license.order',
+    state: 'license.order',
     app: [DEDICATED],
     regions: ['EU', 'CA', 'US'],
     tracker: 'dedicated::orders::licences::order',
