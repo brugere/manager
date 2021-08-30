@@ -45,7 +45,7 @@
   "server_sidebar_order_item_ip_title": "IP supplémentaire",
   "server_sidebar_order_item_iplb_title": "Load Balancer",
   "server_sidebar_order_item_vrack_title": "vRack",
-  "server_sidebar_order_item_licence_title": "Licence",
+  "server_sidebar_order_item_licence_title": "License",
   "server_sidebar_order_item_NAS_title": "NAS",
   "server_sidebar_order_item_NASHA_title": "NAS-HA",
   "server_sidebar_order_item_paas_cda_title": "Cloud Disk Array",
