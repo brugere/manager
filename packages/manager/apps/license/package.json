@@ -20,7 +20,7 @@
   "dependencies": {
     "@ovh-ux/manager-config": "^5.0.0 || ^6.0.0",
     "@ovh-ux/manager-core": "^12.0.0 || ^13.0.0",
-    "@ovh-ux/manager-license": "^0.0.1",
+    "@ovh-ux/manager-license": "^0.0.1 || ^1.0.0",
     "@ovh-ux/manager-preloader": "^1.0.0",
     "@ovh-ux/ng-ovh-payment-method": "^8.1.2",
     "@ovh-ux/ng-ovh-request-tagger": "^1.1.0",
