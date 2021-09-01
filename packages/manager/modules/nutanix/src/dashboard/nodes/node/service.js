@@ -23,11 +23,11 @@ export default class NutanixService {
   getServer(nodeId) {
     return this.$http
       .get(`/sws/dedicated/server/${nodeId}`, {
-        rootPath: '2api',
+        serviceType: 'aapi',
         urlParams: {
           serviceName: nodeId,
         },
       })
-      .then((data) => new DedicatedServer(data));
+      .then(({ data }) => new DedicatedServer(data));
   }
 }

@@ -12,6 +12,7 @@ import routing from './routing';
 import ipmi from './ipmi';
 import generalInfo from './general-info';
 import editDisplayName from './general-info/edit-display-name';
+import service from './service';
 
 const moduleName = 'ovhManagerNutanixNode';
 
@@ -29,6 +30,7 @@ angular
     editDisplayName,
   ])
   .config(routing)
+  .service('NutanixNode', service)
   .component('nutanixNode', component)
   .run(/* @ngTranslationsInject:json ./translations */);
 

@@ -9,4 +9,12 @@ export default class NutanixNodeGeneralInfoCtrl {
       this.server.os = null;
     }
   }
+
+  openOsInstallation(type) {
+    if (type === 'progress') {
+      this.goToOsInstallProgress();
+    } else {
+      this.goToOsInstallChooseSource();
+    }
+  }
 }
