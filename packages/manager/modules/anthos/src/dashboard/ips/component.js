@@ -9,6 +9,7 @@ export default {
     displayAlerterMessage: '<',
     goBack: '<',
     goToTenant: '<',
+    goToOrderPublicIp: '<',
     goToAssignPrivateIp: '<',
     goToRemovePrivateIp: '<',
   },

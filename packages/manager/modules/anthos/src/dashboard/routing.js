@@ -76,12 +76,6 @@ export default /* @ngInject */ ($stateProvider) => {
       goToOrderHost: /* @ngInject */ ($state) => () =>
         $state.go('anthos.dashboard.general-information.order-host'),
 
-      goToOrderPublicIPs: /* @ngInject */ ($state) => () =>
-        $state.go('anthos.dashboard.general-information.order-public-ips'),
-
-      goToAssignPrivateIp: /* @ngInject */ ($state) => () =>
-        $state.go('anthos.dashboard.ips.assign-private-ip'),
-
       goToRemovePrivateIp: /* @ngInject */ ($state) => (privateIp) =>
         $state.go('anthos.dashboard.ips.remove-private-ip', {
           privateIp,

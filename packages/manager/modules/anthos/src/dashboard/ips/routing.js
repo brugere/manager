@@ -10,6 +10,12 @@ export default /* @ngInject */ ($stateProvider) => {
 
       goBack: /* @ngInject */ ($state, goToTenant) => (message, type) =>
         goToTenant(message, type, $state.$current.parent.name),
+
+      goToOrderPublicIp: /* @ngInject */ ($state) => () =>
+        $state.go('anthos.dashboard.ips.order-public-ip'),
+
+      goToAssignPrivateIp: /* @ngInject */ ($state) => () =>
+        $state.go('anthos.dashboard.ips.assign-private-ip'),
     },
   });
 };

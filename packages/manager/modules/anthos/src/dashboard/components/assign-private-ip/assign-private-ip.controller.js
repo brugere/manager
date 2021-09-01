@@ -1,4 +1,4 @@
-import { IPV4_BLOCK_REGEX } from '../constant';
+import { IPV4_BLOCK_REGEX } from './constant';
 
 export default class AssignPrivateIpController {
   /* @ngInject */
