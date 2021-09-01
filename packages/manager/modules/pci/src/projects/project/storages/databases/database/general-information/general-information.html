@@ -240,6 +240,28 @@
                         ></p>
                     </oui-tile-description>
                 </oui-tile-definition>
+
+                <oui-tile-definition
+                    data-ng-if="$ctrl.isFeatureActivated('terminationProtection')"
+                    data-term="{{:: 'pci_databases_general_information_termination_protection_label' | translate }}"
+                >
+                    <oui-tile-description>
+                        <oui-switch
+                            model="$ctrl.database.terminationProtection"
+                            on-change="$ctrl.onChangeTerminationProtection(terminationProtection)"
+                        >
+                        </oui-switch>
+                        <span
+                            data-ng-if="$ctrl.database.terminationProtection"
+                            data-translate="pci_databases_general_information_termination_protection_enabled_label"
+                        ></span>
+
+                        <span
+                            data-ng-if="!$ctrl.database.terminationProtection"
+                            data-translate="pci_databases_general_information_termination_protection_disabled_label"
+                        ></span>
+                    </oui-tile-description>
+                </oui-tile-definition>
             </oui-tile>
         </div>
         <div class="col-md-4">
@@ -319,6 +341,34 @@
                             data-translate="{{'pci_databases_general_information_' + $ctrl.database.sslMode}}"
                         ></span>
                     </oui-tile-description>
+                </oui-tile-definition>
+                <oui-tile-definition
+                    data-term="{{:: 'pci_databases_general_information_certificate_label' | translate }}"
+                    data-ng-if="$ctrl.isFeatureActivated('certificate')"
+                >
+                    <oui-tile-description>
+                        <button
+                            class="oui-tile__button oui-button oui-button_ghost"
+                            data-ng-click="$ctrl.showCertificate()"
+                        >
+                            <span
+                                data-translate="pci_databases_general_information_certificate_link"
+                            ></span>
+                            <span
+                                class="oui-icon oui-icon-arrow-right ml-1"
+                                aria-hidden="true"
+                            ></span>
+                        </button>
+                    </oui-tile-description>
+                    <oui-action-menu data-compact data-placement="end">
+                        <oui-action-menu-item
+                            data-on-click="$ctrl.downloadCertificate()"
+                        >
+                            <span
+                                data-translate="pci_databases_general_information_certificate_download"
+                            ></span>
+                        </oui-action-menu-item>
+                    </oui-action-menu>
                 </oui-tile-definition>
             </oui-tile>
         </div>

@@ -8,12 +8,14 @@ export default class {
     CucCloudMessage,
     ovhManagerRegionService,
     DatabaseService,
+    CucControllerHelper,
   ) {
     this.$translate = $translate;
     this.capitalize = capitalize;
     this.CucCloudMessage = CucCloudMessage;
     this.ovhManagerRegionService = ovhManagerRegionService;
     this.DatabaseService = DatabaseService;
+    this.CucControllerHelper = CucControllerHelper;
   }
 
   $onInit() {
@@ -22,6 +24,8 @@ export default class {
     this.loadMessages();
     this.connectionInformation = this.getConnectionInformation();
     this.pollDatabaseStatus();
+
+    this.database.terminationProtection = true;
   }
 
   getConnectionInformation() {
@@ -36,6 +40,27 @@ export default class {
         this.database.nodes.length > 1 ? 'replicaSet=replicaset&' : ''
       }tls=true`,
     };
+  }
+
+  downloadCertificate() {
+    this.CucControllerHelper.constructor.downloadContent({
+      fileContent: this.database.certificate.ca,
+      fileName: `ca.pem`,
+    });
+  }
+
+  showCertificate() {
+    this.CucCloudMessage.info(
+      {
+        textHtml: this.$translate.instant(
+          'pci_databases_general_information_certificate_tooltip',
+          {
+            certificate: this.database.certificate.ca,
+          },
+        ),
+      },
+      this.messageContainer,
+    );
   }
 
   addNode() {
@@ -105,6 +130,10 @@ export default class {
   deleteDatabase() {
     this.trackDatabases('dashboard::general_information::delete_database');
     this.goToDeleteDatabase();
+  }
+
+  onChangeTerminationProtection(terminationProtection) {
+    this.database.terminationProtection = terminationProtection;
   }
 
   $onDestroy() {
